@@ -1,5 +1,6 @@
 package com.luisscudeler.mongodbexcercise.resources;
 
+import com.luisscudeler.mongodbexcercise.domain.Post;
 import com.luisscudeler.mongodbexcercise.domain.User;
 import com.luisscudeler.mongodbexcercise.dto.UserDTO;
 import com.luisscudeler.mongodbexcercise.service.UserService;
@@ -55,5 +56,11 @@ public class UserResource {
         obj = userService.update(obj);
         return ResponseEntity.noContent().build();
 
+    }
+
+    @GetMapping(value = "/{id}/posts")
+    public ResponseEntity<List<Post>> findPosts(@PathVariable("id") String id){
+        User user = userService.findById(id);
+        return ResponseEntity.ok().body(user.getPosts());
     }
 }
