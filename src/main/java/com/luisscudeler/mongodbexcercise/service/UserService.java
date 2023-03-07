@@ -34,8 +34,22 @@ public class UserService {
         findById(id); //usar essa função apenas pra buscar pois caso nao exista ela ja irá lançar uma exception para nós.
         userRepository.deleteById(id);
     }
+
+    public User update(User obj){
+        User newObj = findById(obj.getId());
+        updateData(newObj, obj);
+        return userRepository.save(newObj);
+
+    }
     public User fromDTO(UserDTO objDto){
         return new User(objDto.getId(), objDto.getName(), objDto.getEmail());
+    }
+
+    public User updateData(User newObj, User obj){
+        newObj.setName(obj.getName());
+        newObj.setEmail(obj.getEmail());
+        return newObj;
+
     }
 
 }
